@@ -18,13 +18,13 @@ Parses Airbyte sync log files and produces structured reports with:
 Clone the skill into your project:
 
 ```bash
-git clone https://github.com/faros-ai/airbyte-analyze-sync-logs-skill .claude/skills/analyze-sync-logs
+git clone https://github.com/faros-ai/analyze-airbyte-sync-logs-skill .claude/skills/analyze-sync-logs
 ```
 
 Or add as a submodule:
 
 ```bash
-git submodule add https://github.com/faros-ai/airbyte-analyze-sync-logs-skill .claude/skills/analyze-sync-logs
+git submodule add https://github.com/faros-ai/analyze-airbyte-sync-logs-skill .claude/skills/analyze-sync-logs
 ```
 
 ## Usage
