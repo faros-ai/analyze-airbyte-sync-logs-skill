@@ -1,4 +1,4 @@
-# Troubleshooting Airbyte Connector Syncs
+# Analyze Airbyte Sync Logs
 
 An AI coding assistant skill to generate human-readable diagnostic reports from Airbyte connector sync logs.
 
@@ -18,13 +18,22 @@ Parses Airbyte sync log files and produces structured reports with:
 Clone the skill into your project:
 
 ```bash
-git clone https://github.com/faros-ai/analyze-airbyte-sync-logs-skill .claude/skills/analyze-sync-logs
+git clone https://github.com/faros-ai/analyze-airbyte-sync-logs-skill .agents/skills/analyze-sync-logs
 ```
 
 Or add as a submodule:
 
 ```bash
-git submodule add https://github.com/faros-ai/analyze-airbyte-sync-logs-skill .claude/skills/analyze-sync-logs
+git submodule add https://github.com/faros-ai/analyze-airbyte-sync-logs-skill .agents/skills/analyze-sync-logs
+```
+
+### Claude Code
+
+Claude Code looks for skills in `.claude/skills/`. Create a symlink:
+
+```bash
+mkdir -p .claude/skills
+ln -s ../../.agents/skills/analyze-sync-logs .claude/skills/analyze-sync-logs
 ```
 
 ## Usage
