@@ -2,6 +2,8 @@
 
 An AI coding assistant skill to generate human-readable diagnostic reports from Airbyte connector sync logs.
 
+Compatible with [OpenAI Codex](https://openai.com/index/codex/) and [Claude Code](https://docs.anthropic.com/en/docs/claude-code).
+
 ## Overview
 
 Parses Airbyte sync log files and produces structured reports with:
