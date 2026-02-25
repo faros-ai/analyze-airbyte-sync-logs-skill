@@ -10,7 +10,7 @@ Arguments: $ARGUMENTS (one or more log file paths)
 
 Steps:
 
-1. For each log file, run: `python3 scripts/analyze-sync-logs.py <file>`
+1. For each log file, first determine the absolute path of the directory containing this SKILL.md file (call it SKILL_DIR), then run: `python3 $SKILL_DIR/scripts/analyze-sync-logs.py <file>`
 2. Parse the JSON output from each run
 3. Present a report for each log covering:
    - Sync status, duration, start/end times
