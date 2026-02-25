@@ -10,7 +10,7 @@ Arguments: $ARGUMENTS (one or more log file paths)
 
 Steps:
 
-1. For each log file, run: `python3 scripts/analyze-sync-logs.py <file>`
+1. For each log file, run the analysis script using the skill's base directory (provided above): `python3 <base_directory>/scripts/analyze-sync-logs.py <file>`
 2. Parse the JSON output from each run
 3. Present a report for each log covering:
    - Sync status, duration, start/end times
