@@ -10,7 +10,7 @@ Arguments: $ARGUMENTS (one or more log file paths)
 
 Steps:
 
-1. For each log file, run the analysis script using the skill's base directory (provided above): `python3 <base_directory>/scripts/analyze-sync-logs.py <file>`
+1. For each log file, run the analysis script located in this skill's `scripts/` directory (i.e. adjacent to this SKILL.md file). First find the absolute path to this skill's directory, then run: `python3 /absolute/path/to/this/skill/scripts/analyze-sync-logs.py <file>`
 2. Parse the JSON output from each run
 3. Present a report for each log covering:
    - Sync status, duration, start/end times
