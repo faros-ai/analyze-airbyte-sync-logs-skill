@@ -26,12 +26,12 @@ def _decompress_state(data):
 
 
 _TIMESTAMP_PREFIX = re.compile(
-    r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\s+"
+    r"^\[?\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\]?\s+"
     r"(?:info|warn|error|debug|trace|INFO|WARN|ERROR|DEBUG|TRACE)\s+"
 )
 
 _LOG_LINE = re.compile(
-    r"^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\s+"
+    r"^\[?(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\]?\s+"
     r"(info|warn|error|debug|trace|INFO|WARN|ERROR|DEBUG|TRACE)\s+"
     r"(.*)$"
 )
@@ -115,9 +115,10 @@ def parse_log(filepath):
     # Track per-slice reads for streams that don't emit a stream-level total
     slice_counts = {}  # stream -> accumulated count
 
-    # Track first/last timestamps for fallback sync timing
-    first_timestamp = None
-    last_timestamp = None
+    # Track min/max timestamps for fallback sync timing.
+    # Use min/max rather than first/last so reverse-chronological logs still work.
+    min_timestamp = None
+    max_timestamp = None
 
     with open(filepath, encoding="utf-8") as f:
         for line in f:
@@ -157,9 +158,10 @@ def parse_log(filepath):
             ts_match = _LOG_LINE.match(line)
             if ts_match:
                 ts = ts_match.group(1)
-                if first_timestamp is None:
-                    first_timestamp = ts
-                last_timestamp = ts
+                if min_timestamp is None or ts < min_timestamp:
+                    min_timestamp = ts
+                if max_timestamp is None or ts > max_timestamp:
+                    max_timestamp = ts
 
             # Source version: 0.21.0
             m = re.search(r"Source version:\s*(.+)", line)
@@ -336,10 +338,10 @@ def parse_log(filepath):
         if start and end:
             result["sync"]["duration_seconds"] = round((end - start) / 1000)
 
-    if not result["sync"]["start_time"] and first_timestamp:
-        result["sync"]["start_time"] = first_timestamp
-    if not result["sync"]["end_time"] and last_timestamp:
-        result["sync"]["end_time"] = last_timestamp
+    if not result["sync"]["start_time"] and min_timestamp:
+        result["sync"]["start_time"] = min_timestamp
+    if not result["sync"]["end_time"] and max_timestamp:
+        result["sync"]["end_time"] = max_timestamp
     if result["sync"]["duration_seconds"] is None:
         s = result["sync"]["start_time"]
         e = result["sync"]["end_time"]
